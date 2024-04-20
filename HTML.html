@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza</title>
+</head>
+
+<body>
+    <div>
+        <ul class="items-list">
+            <li>Our text</li>
+        </ul>
+        <form class="add-items-form">
+            <input type="text" name="item" placeholder="Name..." autocomplete="off" required>
+            <input type="submit" value="add ingridient">
+        </form>
+        <script>
+            let addItemsForm = document.querySelector('.add-items-form');
+            let ItemsList = document.querySelector('.items-list');
+            let items = [];
+            function setItem(e) {
+                e.preventDefault();
+
+                const text = e.target.item.value;
+                const item = {
+                    text: text,
+                    checked: false
+                }
+                items.push(item);
+                displayItems(items, ItemsList)
+                this.reset();
+            }
+
+
+            function displayItems(ingridients, ingriediensList) {
+                console.log(ingridients, ingriediensList);
+
+                ingriediensList.innerHTML = ingridients.map((ing , index) => {
+                    return `<li>
+                        <input type='checkbox' name="ingr" id = 'item${index}' 'data-index = ${index}' ${ing.checked ? 'checked' : ''}/>
+                       <label for='item${index}' > ${ing.text}</label>
+                        </li>`;
+                }).join(' ');
+            }
+            function toggleClick(e){
+                console.log(e.target)
+            }
+            addItemsForm.addEventListener('submit', setItem)
+            ItemsList.addEventListener('click' , toggleClick)
+        </script>
+    </div>
+</body>
+
+</html>
